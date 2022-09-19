@@ -1,0 +1,35 @@
+const int potpin=A0;
+const int fwd=13;
+const int bck=12;
+const int icpin2=11;
+const int icpin7=10;
+int motorvalue=0;
+int potvalue=0;
+
+int fwds=0;
+int bcks=0;
+void setup() {
+ pinMode(fwd,INPUT_PULLUP);
+ pinMode(bck,INPUT_PULLUP);
+ pinMode(icpin2,OUTPUT);
+ pinMode(icpin7,OUTPUT);
+  
+}
+
+void loop() {
+  potvalue=analogRead(potpin);
+  motorvalue=map(potvalue,0,1023,0,255);
+  fwds=digitalRead(fwd);
+  bcks=digitalRead(bck);
+  delay(2000);
+  if(fwds==LOW||bcks==LOW){
+    analogWrite(fwds==LOW? icpin2:icpin7,motorvalue);
+    digitalWrite(fwds==LOW? icpin7:icpin2,LOW);
+  }
+  else{
+    digitalWrite(icpin2,LOW);
+    digitalWrite(icpin7,LOW);
+  }
+}
+                
+    
