@@ -1,0 +1,33 @@
+#include <SimpleDHT.h>
+#include<LiquidCrystal.h>
+int dhtpin=8;
+SimpleDHT22 dht(dhtpin);
+LiquidCrystal lcd(7,6,5,4,3,2);
+void setup(){
+  Serial.begin(9600);
+  Serial.println("TEMPERATURE AND HUMIDITY SENSOR");
+  lcd.begin(16,2);
+  lcd.print("TEMPERATURE");
+  lcd.setCursor(0,1);
+  lcd.print("AND HUMIDITY");
+  delay(5000);
+  lcd.clear();
+}
+void loop(){
+  byte temp=0;
+  byte humid=0;
+  dht.read(dhtpin,&temp,&humid,NULL);
+  Serial.print("temperature =");
+  lcd.setCursor(0,0);
+  lcd.print("TEMPERATURE=");
+  lcd.setCursor(12,0);
+  lcd.print((int)temp);
+  Serial.println((int)temp);
+  Serial.print("humidity=");
+  lcd.setCursor(0,1);
+  lcd.print("HUMIDITY=");
+  lcd.setCursor(9,1);
+  lcd.print((int)humid);
+  Serial.println((int)humid);
+  delay(2000);
+}
