@@ -1,0 +1,27 @@
+#include<LiquidCrystal.h>
+const int volter=A0;
+int sensor_value=0;
+float vout=0.0,vin=0.0;
+float r1=3000.0,r2=7500.0;
+LiquidCrystal lcd(7,6,5,4,3,2);
+void setup(){
+  lcd.begin(16,2);
+  lcd.setCursor(0,0);
+  lcd.print("voltage sensor");
+  lcd.setCursor(0,1);
+  lcd.print("measure upto 25v");
+  delay(3000);
+  lcd.clear();
+}
+void loop(){
+  sensor_value=analogRead(volter);
+  vout=(sensor_value*5)/1024.0;
+  vin=vout/(r2/(r1+r2));
+  lcd.setCursor(0,0);
+  lcd.print("input=");
+  lcd.setCursor(9,0);
+  lcd.print(vin);
+  delay(500);
+
+
+}
